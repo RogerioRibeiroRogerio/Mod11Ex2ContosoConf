@@ -37,8 +37,20 @@ export class speakerBadgePage {
 
     drawBadge(image) {
         // TODO: Get the canvas's (this.canvas) context and assign to this.context
+        this.context = this.canvas.getContext("2d");
+
 
         // TODO: Draw the following by calling the helper methods of `this`
+        this.drawBackground();
+        this.drawTopText();
+        this.drawSpeakerName();
+        if (image) {
+            this.drawSpeakerImage(image);
+        } else {
+            this.drawImagePlaceholder();
+        }
+        this.drawBarCode(this.speakerId);
+
         //       background
         //       top text
         //       speaker name
@@ -48,10 +60,18 @@ export class speakerBadgePage {
 
     drawBackground() {
         // TODO: Fill the canvas with a white rectangle
+        this.context.fillStyle = "white";
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
     }
 
     drawSpeakerImage(image) {
         // TODO: Draw the image on the canvas
+        const size = Math.min(image.width, image.height);
+        const sourceX = image.width / 2 - size / 2;
+        const sourceY = image.height / 2 - size / 2;
+        this.context.drawImage(image, sourceX, sourceY, size, size, 20, 20, 160, 160);
+
         //       Draw only the center square of the image
         //       Draw at:
         //       x, y = 20, 20
